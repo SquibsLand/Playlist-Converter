@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import Path, PureWindowsPath, PosixPath
 import ffmpeg
 from typing import Optional
 from pathlib import Path
@@ -10,7 +10,8 @@ class PlaylistItem:
     def __init__(self, outputRoot: str, inputRoot: str, path: str):
         self.inputRoot = Path(inputRoot)
         self.outputRoot = Path(outputRoot)
-        self.path = Path(path)
+        self.path = automaticPath(path)
+        self.style = pathStyle(path)
 
         self.pathObj = self.inputRoot / self.path
         self.valid = self.getInputPath().exists()
@@ -28,7 +29,25 @@ class PlaylistItem:
         return self.path.with_suffix(suffix)
     def getInputPath(self) -> Path:
         return self.inputRoot / self.path
-        
+
+    
+def automaticPath(path:str):
+    style = pathStyle(path)
+    if style == "windows":
+        return PureWindowsPath(path)
+    elif style == "posix": 
+        return PosixPath(path)
+    else:
+        print("Unknown file path type")
+        return Path(path)
+
+def pathStyle(path: str):
+    if "\\" in path:
+        return "windows"
+    if "/" in path:
+        return "posix"
+    return "unknown" 
+   
 def parsePlaylist(outputRoot:str, inputRoot:str, songs: list[str]):
     def toItem(path:str):
         return PlaylistItem(outputRoot, inputRoot, path)
@@ -80,7 +99,7 @@ def convertSongs(args: type[MyNamespace], songs:list[PlaylistItem], playlistName
     else:
         print(f"{len(songs) - fails}/{len(songs)} where converted")   
     print("Generating new playlist...")
-    convertPlaylist(args,playlistName, map(Path,newSongs) ) 
+    convertPlaylist(args,playlistName, newSongs ) 
 
 def parseReplayGain(inputPath:str):
     print("Look here")
