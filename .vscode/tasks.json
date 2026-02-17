@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Docker Build",
+            "type": "shell",
+            "command": " docker build -t playlist-converter ."
+        },
+        {
+            "label": "Clear I/O",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-Command",
+                "Get-ChildItem -Path '${workspaceFolder}\\input','${workspaceFolder}\\output' -Recurse | Remove-Item -Force -Recurse"
+            ],
+        }
+    ]
+}
