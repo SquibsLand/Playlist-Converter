@@ -5,7 +5,13 @@
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/src/main.py",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "args": [
+                "--input",
+                "${workspaceFolder}/input",
+                "--output",
+                "${workspaceFolder}/output",
+            ]
         }
     ]
 }

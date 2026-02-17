@@ -13,8 +13,8 @@ class MyNamespace(argparse.Namespace):
 def getArgs():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--input", type=str, default="input/")
-    parser.add_argument("--output", type=str, default="output/")
+    parser.add_argument("--input", type=str, default="/input")
+    parser.add_argument("--output", type=str, default="/output")
     parser.add_argument("--overwrite", type=bool, default=False)
     parser.add_argument("--replay_gain", type=bool, default=False)
     parser.add_argument("--output_type", type=str, default="wav")
