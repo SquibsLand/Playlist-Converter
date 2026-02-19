@@ -1,5 +1,6 @@
 from pathlib import Path
 import argparse
+from typing import Literal
 
 class MyNamespace(argparse.Namespace):
 
@@ -8,6 +9,7 @@ class MyNamespace(argparse.Namespace):
     overwrite:bool
     replay_gain: bool
     output_type:str
+    out_playlist_structure: Literal["auto", "windows", "posix"]
 
 
 def getArgs():
@@ -18,6 +20,7 @@ def getArgs():
     parser.add_argument("--overwrite", type=bool, default=False)
     parser.add_argument("--replay_gain", type=bool, default=False)
     parser.add_argument("--output_type", type=str, default="wav")
+    parser.add_argument("--out_playlist_structure", type=str, default="auto")
     return parser.parse_args(namespace=MyNamespace)
 
 

@@ -11,6 +11,8 @@
                 "${workspaceFolder}/input",
                 "--output",
                 "${workspaceFolder}/output",
+                "--out_playlist_structure",
+                "posix"
             ]
         }
     ]
